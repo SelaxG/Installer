@@ -12,6 +12,7 @@ from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelReques
 from asyncio import get_event_loop
 from .language import LANG, COUNTRY, LANGUAGE, TZ
 from rich.prompt import Prompt, Confirm
+import datetime
 
 LANG = LANG['MAIN']
 
@@ -25,7 +26,8 @@ def connect (api):
     return heroku_conn
 
 def createApp (connect):
-    appname = "asena" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    x = datetime.datetime.now()
+    appname = 'asena-'+x.strftime("%d")+'-'+x.strftime("%m")+'-'+x.strftime("%y")
     try:
         connect.create_app(name=appname, stack_id_or_name='container', region_id_or_name="eu")
     except requests.exceptions.HTTPError:
